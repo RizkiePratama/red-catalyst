@@ -1,0 +1,46 @@
+<div id="page-streamtarget" class="container">
+  <% if flash[:notice] %>
+  <div class="columns">
+    <div class="column notification is-primary">
+      <button class="delete"></button>
+      <%= flash[:notice] %>
+    </div>
+  </div>
+  <% end %>
+  <% if flash[:alert] %>
+  <div class="columns">
+    <div class="column notification is-danger">
+      <button class="delete"></button>
+      <%= flash[:alert] %>
+    </div>
+  </div>
+  <% end %>
+  <div class="columns">
+    <div class="column">
+      <h1>Whitelist Client</h1>
+    </div>
+    <div class="column has-text-right">
+      <a class="button is-rounded is-primary is-light" href="/whitelist/new">Create New Stream Key</a>
+    </div>
+  </div>
+  <table class="table is-fullwidth is-striped is-hoverable" class="columns">
+    <thead>
+      <tr>
+        <th class="has-text-centered">Whitelist Name</th>
+        <th class="has-text-centered">IP Address</th>
+        <th class="has-text-centered">Notes</th>
+        <th class="has-text-centered">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @whitelists.each do | whitelist | %>
+      <tr>
+        <td class="has-text-centered"><%= whitelist.name %></td>
+        <td class="has-text-centered"><%= whitelist.ip %></td>
+        <td class="has-text-centered"><%= whitelist.desc %></td>
+        <td class="has-text-centered"><a href="/whitelist/remove?id=<%= whitelist.id %>">Remove</a></td>
+      <tr>     
+      <% end %>
+    </tbody>
+  </table>
+</div>

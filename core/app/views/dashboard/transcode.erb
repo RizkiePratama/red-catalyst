@@ -1,0 +1,62 @@
+<div id="page-transocode" class="container">
+  <% if flash[:notice] %>
+  <div class="columns">
+    <div class="column notification is-primary">
+      <button class="delete"></button>
+      <%= flash[:notice] %>
+    </div>
+  </div>
+  <% end %>
+  <% if flash[:alert] %>
+  <div class="columns">
+    <div class="column notification is-danger">
+      <button class="delete"></button>
+      <%= flash[:alert] %>
+    </div>
+  </div>
+  <% end %>
+  <div class="column has-text-right">
+    <a class="button is-rounded is-primary is-light" href="/transcode?action=new">Create New Transcode Process</a>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <table id="transcode-settings" class="table is-fullwidth">
+        <thead>
+          <tr>
+            <th class="has-text-centered"><abbr title="Input Name">Input Name</abbr></th>
+            <th class="has-text-centered"><abbr title="Transcode Profile">Transcode Profile</abbr></th>
+            <th class="has-text-centered"><abbr title="Transcode Job Name">Transcode Job Name</abbr></th>
+            <th class="has-text-centered"><abbr title="Status">Status</abbr></th>
+            <th class="has-text-centered"><abbr title="Action">Action</abbr></th>
+          </tr>
+        </thead>
+        <tbody id="transcode-settings-tbody">
+          <% @transcodes.each do | transcode | %>
+          <tr>
+            <td class="has-text-centered"><a href="<%= "/input/%s/%s" % [transcode.app_name, transcode.input_name] %>"><%= transcode.input_name %></a></td>
+            <% @profiles.each do | profile | %>
+              <% if profile.id == transcode.profile_id %>
+            <td class="has-text-centered"><%= profile.name %></td>
+              <% end %>
+            <% end %>
+            <td class="has-text-centered"><%= transcode.name %></td>
+            <td class="has-text-centered"><%= transcode.status %></td>
+            <% 
+                action_buttons = [
+                  "<a href=\"/transcode/preview?id=%s\">Preview</a>" % [transcode.id],
+                  "<a href=\"/transcode/remove?id=%s\">Remove</a>" % [transcode.id]
+                ]
+                if transcode.status == "Transcoding"
+                  action_buttons.push("<a href=\"/transcode/stop?id=%s\" onclick=\"return confirm(\'Are you sure want to stop the Transcode?\')\">Stop</a>" % [transcode.id])
+                else 
+                  action_buttons.push("<a href=\"/transcode/restart?id=%s\" onclick=\"return confirm(\'Are you sure want to restart the Transcode?\')\">Restart</a>" % [transcode.id])
+                end
+            %>
+            <td class="has-text-centered"><%= action_buttons.join(" | ")  %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

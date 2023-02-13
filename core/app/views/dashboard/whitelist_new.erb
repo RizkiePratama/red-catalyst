@@ -1,0 +1,43 @@
+<div id="page-streamtarget" class="container">
+  <div class="columns">
+    <div class="column">
+      <h1>Whitelist Client's</h1>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <form action="<%= env['REQUEST_URI'] %>" accept-charset="UTF-8" data-remote="true" method="post">
+
+        <div class="field">
+          <label class="label">Whitelist Name</label>
+          <div class="control">
+            <input class="input" type="text" name="name" placeholder="Whitelist Name">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">IP Address</label>
+          <div class="control">
+            <input class="input" type="text" name="ip" placeholder="Whitelisted IP Address">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Notes</label>
+          <div class="control">
+            <input class="input" type="textbox" name="desc" placeholder="Notes about the Client if Any">
+          </div>
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-link">Submit</button>
+          </div>
+          <div class="control">
+            <button class="button is-link is-light">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<div id="page-transcode-new" class="container">
+  <div class="columns">
+    <div class="column">
+      <h1>Transcode Input Stream</h1>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column is-full-mobile is-half-desktop">
+      <form action="<%= env['REQUEST_URI'] %>" accept-charset="UTF-8" data-remote="true" method="post">
+        <div class="field">
+          <label class="label">Transcode Profile</label>
+          <div class="control">
+            <div class="select">
+              <select name="profile">
+                <option value="">--- Select Profile ---</option>
+                <% @profiles.each do | profile |%>
+                <option value="<%= profile['id'] %>"><%= profile['name'] %></option>
+                <%end%>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Input Stream</label>
+          <div class="control">
+            <div class="select">
+              <select name="input">
+                <option value="">--- Select Input ---</option>
+                <% @inputs.each do | input |%>
+                <option value="<%= input['name'] %>"><%= input['name'] %></option>
+                <%end%>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-link">Submit</button>
+          </div>
+          <div class="control">
+            <button class="button is-link is-light">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="column is-full-mobile is-half-desktop">
+  </div>
+  </div>
+</div>

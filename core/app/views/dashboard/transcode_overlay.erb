@@ -1,0 +1,60 @@
+<script src="<%= "http://%s/js/modal.js" % request.env["HTTP_HOST"] %>"></script>
+
+<div id="page-transocode-overlay" class="container">
+  <% if flash[:notice] %>
+  <div class="columns">
+    <div class="column notification is-primary">
+      <button class="delete"></button>
+      <%= flash[:notice] %>
+    </div>
+  </div>
+  <% end %>
+  <% if flash[:alert] %>
+  <div class="columns">
+    <div class="column notification is-danger">
+      <button class="delete"></button>
+      <%= flash[:alert] %>
+    </div>
+  </div>
+  <% end %>
+
+  <div id="modal-window" class="modal modal-overlay">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Overlay Preview</p>
+        <button id="modal-close" class="delete" aria-label="close"></button>
+      </header>
+      <section class="modal-card-body">
+        <img id="overlay-preview-img" src="">
+      </section>
+      <footer class="modal-card-foot buttons is-right">
+        <button class="button is-success">Close</button>
+      </footer>
+    </div>
+  </div>
+
+  <div class="column has-text-right">
+    <a class="button is-rounded is-primary is-light" href="/transcode/overlay?action=new">Create New Overlay</a>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <table id="transcode-settings" class="table is-striped is-fullwidth">
+        <thead>
+          <tr>
+            <th class="has-text-centered"><abbr title="Stream Name">Overlay Name</abbr></th>
+            <th class="has-text-centered"><abbr title="Stream Name">Action</abbr></th>
+          </tr>
+        </thead>
+        <tbody id="transcode-settings-tbody">
+          <% @overlays.each do | overlay | %>
+          <tr>
+            <td class="has-text-centered"><%= overlay.name %></td>
+            <td class="has-text-centered"><a id="modal-open" onClick="openOverlayPreview(<%= overlay.id %>)">View</a> | <a href="<%= "/transcode/overlay?action=edit&id=#{overlay.id}" %>">Edit</a> | <a href="<%= "/transcode/overlay/remove?id=#{overlay.id}" %>">Remove</a></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

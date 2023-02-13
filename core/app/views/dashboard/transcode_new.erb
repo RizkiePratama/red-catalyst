@@ -1,0 +1,96 @@
+<div id="page-streamtranscode" class="container">
+  <div class="columns">
+    <div class="column">
+      <h1>Stream Target</h1>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column">
+      <%= form_with(url: request.fullpath, method: "post") do %>
+      <input class="input" type="hidden" name="input" value="<%= params["input"] %>">
+
+      <div class="field">
+        <label class="label">Encoding</label>
+        <div class="control">
+          <div class="select">
+            <select name="videoencoding">
+              <option value="libx264">x264</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Profile</label>
+        <div class="control">
+          <div class="select">
+            <select name="encodeprofile">
+              <option value="baseline">Baseline</option>
+              <option value="main">Main</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Resolution</label>
+        Width: <input class="input" type="text" name="reswidth" placeholder="ex: 1920">
+        Height: <input class="input" type="text" name="resheight" placeholder="ex: 1080">
+      </div>
+
+      <div class="field">
+        <label class="label">Bitrate</label>
+        <input class="input" type="text" name="videobitrate" placeholder="in kilobit, ex: 4500">
+      </div>
+
+      <div class="field">
+        <label class="label">FPS</label>
+        <input class="input" type="text" name="fps" placeholder="ex: 30">
+      </div>
+
+      <div class="field">
+        <label class="label">Encoding</label>
+        <div class="control">
+          <div class="select">
+            <select name="audioencoding">
+              <option value="aac">AAC</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Frequency</label>
+        <div class="control">
+          <div class="select">
+            <select name="audiofreq">
+              <option value="44100">44.1kHz</option>
+              <option value="48000">48kHz</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Bitrate</label>
+        <input class="input" type="text" name="audiobitrate" placeholder="in kilobit, ex: 128">
+      </div>
+
+      <div class="field">
+        <label class="label">Custom x264 Command</label>
+        <input class="input" type="text" name="custom">
+      </div>
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-link">Submit</button>
+        </div>
+        <div class="control">
+          <button class="button is-link is-light">Cancel</button>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

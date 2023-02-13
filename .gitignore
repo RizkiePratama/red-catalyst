@@ -1,0 +1,14 @@
+# vim Swap Files
+*.swp
+*.swo
+.vscode
+
+# DB Item
+*.sqlite3
+schema.rb
+
+# Overlay Path
+core/app/public/Overlay/
+
+# Log Files
+supervisord.log

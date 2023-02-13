@@ -1,0 +1,47 @@
+<script src="<%= "http://%s/js/rtmp_input.js" % request.env["HTTP_HOST"] %>"></script>
+<div id="page-streamtarget" class="container">
+  <% if flash[:notice] %>
+  <div class="columns">
+    <div class="column notification is-primary">
+      <button class="delete"></button>
+      <%= flash[:notice] %>
+    </div>
+  </div>
+  <% end %>
+  <div class="columns">
+    <div class="column">
+      <h1>Embedded Stream</h1>
+    </div>
+    <div class="column has-text-right">
+     <a class="button is-rounded is-primary is-light" href="/embed/new">Embedded New Stream</a>
+    </div>
+  </div>
+  <div class="columns">
+    <table id="rtmp-input" class="table is-fullwidth">
+      <thead>
+        <tr>
+          <th class="has-text-centered"><abbr title="Stream Name">Stream Name</abbr></th>
+          <th class="has-text-centered">Video Codec</th>
+          <th class="has-text-centered">Resolution</th>
+          <th class="has-text-centered">FPS</th>
+          <th class="has-text-centered">Audio Codec</th>
+          <th class="has-text-centered">Audio Freq</th>
+          <th class="has-text-centered">Connect Time</th>
+        </tr>
+      </thead>
+      <tbody id="rtmp-input-body">
+      <% @stats.each do | stream | %>
+        <tr>
+          <td class="has-text-centered"><a href="<%= "/input/live/%s" % [stream["name"]] %>"><%= stream["name"] %></a></td>
+          <td class="has-text-centered"><%= stream["meta"]["video"]["codec"] %> <%= stream["meta"]["video"]["profile"] %> <%= stream["meta"]["video"]["level"] %></td>
+          <td class="has-text-centered"><%= stream["meta"]["video"]["width"] %> x <%= stream["meta"]["video"]["height"] %></td>
+          <td class="has-text-centered"><%= stream["meta"]["video"]["frame_rate"] %></td>
+          <td class="has-text-centered"><%= stream["meta"]["audio"]["codec"] %> <%= stream["meta"]["audio"]["profile"] %></td>
+          <td class="has-text-centered"><%= stream["meta"]["audio"]["sample_rate"].to_i / 1000.0%> kHz</td>
+          <td class="has-text-right"><%= Time.at(stream["time"].to_i/1000).utc.strftime("%H:%M:%S") %></td>
+        <% end %>
+        <tr>     
+      </tbody>
+    </table>
+  </div>
+</div>

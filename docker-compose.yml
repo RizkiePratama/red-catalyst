@@ -1,0 +1,9 @@
+version: '3'
+services:
+  red-catalyst:
+    build: ./
+    image: red-catalyst
+    restart: always
+    network_mode: "host"
+    volumes:
+      - ./core:/usr/local/red-catalyst
