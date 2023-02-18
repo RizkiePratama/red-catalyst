@@ -9,7 +9,7 @@ https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fed
 https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
 RUN dnf update -y
 RUN dnf group install "C Development Tools and Libraries" -y
-RUN dnf install unzip which procps findutils supervisor ffmpeg nginx ruby ruby-devel sqlite-devel -y
+RUN dnf install unzip which procps findutils supervisor ffmpeg nginx ruby ruby-devel sqlite-devel nodejs -y
 
 # Install SRS
 WORKDIR /tmp
@@ -19,11 +19,13 @@ RUN mv SRS*/usr/local/srs /usr/local
 RUN rm -rf *
 
 # Copy Red Catalyst
-COPY core /usr/local/red-catalyst
+COPY ./ /usr/local/red-catalyst
 WORKDIR /usr/local/red-catalyst
-RUN bundle
+RUN bundle install
+RUN npm install
 
 # Migrate and Initizlize Database
+RUN rake db:create
 RUN rake db:migrate
 RUN rake db:seed
 
